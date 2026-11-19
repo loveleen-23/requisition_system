@@ -94,20 +94,37 @@ class RequisitionSystem:
         return stats
 
 
-if __name__ == "__main__":
-    system = RequisitionSystem()
+    if __name__ == "__main__":
+     system = RequisitionSystem()
 
-    system.add_requisition("03/04/2024", "FN19", "John Paul", [("Chair", 450)])
-    system.add_requisition("05/04/2024", "FN20", "Tracy Brown", [("Laptop", 1000)])
-    system.add_requisition("07/05/2024", "FN15", "Emma Wellington", [("Server Rack", 3500)])
-    system.add_requisition("03/05/2024", "FN02", "Catlin White", [("Desk Lamp", 490)])
-    system.add_requisition("10/05/2024", "FN11", "Liam Smith", [("Monitors", 800)])
+    num_reqs = int(input("How many requisitions do you want to enter? "))
 
+    for i in range(num_reqs):
+        print(f"\n--- Enter details for Requisition {i + 1} ---")
+        date = input("Enter Date (DD/MM/YYYY): ")
+        staff_id = input("Enter Staff ID: ")
+        staff_name = input("Enter Staff Name: ")
+
+        items = []
+        num_items = int(input("How many items for this requisition? "))
+        for j in range(num_items):
+            item_name = input(f"  Enter item {j + 1} name: ")
+            item_price = float(input(f"  Enter item {j + 1} price: "))
+            items.append((item_name, item_price))
+
+        system.add_requisition(date, staff_id, staff_name, items)
+
+    print("\n--- Initial Statistics ---")
     system.requisition_statistics()
 
-    system.respond_requisition(10002, "Approved")
-    system.respond_requisition(10003, "Not approved")
+    num_responses = int(input("\nHow many requisitions do you want to respond to? "))
+    for _ in range(num_responses):
+        req_id = int(input("Enter Requisition ID: "))
+        decision = input("Enter status (Approved / Not approved): ")
+        system.respond_requisition(req_id, decision)
 
+    print("\n--- All Requisitions ---")
     system.display_requisitions()
+
+    print("\n--- Final Statistics ---")
     system.requisition_statistics()
-    # Task 2 completed 
