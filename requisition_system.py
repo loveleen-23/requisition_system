@@ -110,3 +110,4 @@ if __name__ == "__main__":
 
     system.display_requisitions()
     system.requisition_statistics()
+    # Task 2 completed 
