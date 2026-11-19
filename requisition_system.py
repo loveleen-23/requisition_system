@@ -1,12 +1,13 @@
 requisition_id_counter = 10001
 
 
-class requisition_system:
+class RequisitionSystem:
     def __init__(self, date="", staff_id="", staff_name="", status="Pending"):
         self.date = date
         self.staff_id = staff_id
         self.staff_name = staff_name
         self.status = status
+
         self.requisitions = []
         self.total_submitted = 0
         self.total_approved = 0
@@ -88,42 +89,22 @@ class requisition_system:
         print(f"The total number of pending requisitions: {stats['total_pending']}")
         print(f"The total number of not approved requisitions: {stats['total_not_approved']}")
         print()
-        
-
         return stats
 
 
-    if __name__ == "__main__":
-     system = requisition_system()
+if __name__ == "__main__":
+    system = RequisitionSystem()
 
-    num_reqs = int(input("How many requisitions do you want to enter? "))
+    system.add_requisition("03/04/2024", "FN19", "John Paul", [("Chair", 450)])
+    system.add_requisition("05/04/2024", "FN20", "Tracy Brown", [("Laptop", 1000)])
+    system.add_requisition("07/05/2024", "FN15", "Emma Wellington", [("Server Rack", 3500)])
+    system.add_requisition("03/05/2024", "FN02", "Catlin White", [("Desk Lamp", 490)])
+    system.add_requisition("10/05/2024", "FN11", "Liam Smith", [("Monitors", 800)])
 
-    for i in range(num_reqs):
-        print(f"\n--- Enter details for Requisition {i + 1} ---")
-        date = input("Enter Date (DD/MM/YYYY): ")
-        staff_id = input("Enter Staff ID: ")
-        staff_name = input("Enter Staff Name: ")
-
-        items = []
-        num_items = int(input("How many items for this requisition? "))
-        for j in range(num_items):
-            item_name = input(f"  Enter item {j + 1} name: ")
-            item_price = float(input(f"  Enter item {j + 1} price: "))
-            items.append((item_name, item_price))
-
-        system.add_requisition(date, staff_id, staff_name, items)
-
-    print("\n--- Initial Statistics ---")
     system.requisition_statistics()
 
-    num_responses = int(input("\nHow many requisitions do you want to respond to? "))
-    for _ in range(num_responses):
-        req_id = int(input("Enter Requisition ID: "))
-        decision = input("Enter status (Approved / Not approved): ")
-        system.respond_requisition(req_id, decision)
+    system.respond_requisition(10002, "Approved")
+    system.respond_requisition(10003, "Not approved")
 
-    print("\n--- All Requisitions ---")
     system.display_requisitions()
-
-    print("\n--- Final Statistics ---")
     system.requisition_statistics()
