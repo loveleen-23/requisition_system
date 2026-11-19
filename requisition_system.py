@@ -1,13 +1,12 @@
 requisition_id_counter = 10001
 
 
-class RequisitionSystem:
+class requisition_system:
     def __init__(self, date="", staff_id="", staff_name="", status="Pending"):
         self.date = date
         self.staff_id = staff_id
         self.staff_name = staff_name
         self.status = status
-
         self.requisitions = []
         self.total_submitted = 0
         self.total_approved = 0
@@ -95,7 +94,7 @@ class RequisitionSystem:
 
 
     if __name__ == "__main__":
-     system = RequisitionSystem()
+     system = requisition_system()
 
     num_reqs = int(input("How many requisitions do you want to enter? "))
 
